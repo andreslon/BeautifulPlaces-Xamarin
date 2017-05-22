@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Add Place"
+             x:Class="BeautifulPlaces.App.Views.AddPlacePage">
+    <ScrollView>
+        <Grid Padding="{StaticResource pagePadding}">
+            <StackLayout>
+                <Entry Placeholder="Nombre"></Entry>
+                <Entry Placeholder="Ubicación"></Entry>
+                <Editor></Editor>
+                <Button Text="Guardar"></Button>
+            </StackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>
