@@ -1,36 +1,45 @@
-﻿using System.ComponentModel;
+﻿using BeautifulPlaces.App.Enumerations;
+using BeautifulPlaces.App.Resources;
+using GalaSoft.MvvmLight;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace BeautifulPlaces.App.ViewModels
 {
-    class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : ViewModelBase
     {
-
+        public List<PlaceViewModel> Places { get; set; }
+        public ObservableCollection<MenuItemViewModel> MenuItems { get; set; } 
         public MainViewModel()
         {
-            IncreaseCountCommand = new Command(IncreaseCount);
+            Places = new List<PlaceViewModel>();
+            LoadMenuItems();
         }
-
-        int count;
-
-        string countDisplay = "You clicked 0 times.";
-        public string CountDisplay
+        private void LoadMenuItems()
         {
-            get { return countDisplay; }
-            set { countDisplay = value;  OnPropertyChanged(); }
+            MenuItems = new ObservableCollection<MenuItemViewModel>();
+            MenuItems.Add(new MenuItemViewModel()
+            {
+                Name = LocalizedStrings.Get("strHome"),
+                Type = PageTypes.Home,
+                Icon = "ic_home_white_24dp"
+            }); 
+            MenuItems.Add(new MenuItemViewModel()
+            {
+                Name = LocalizedStrings.Get("strRate"),
+                Type = PageTypes.Rate,
+                Icon = "ic_star_rate_white_18dp"
+            });
+            MenuItems.Add(new MenuItemViewModel()
+            {
+                Name = LocalizedStrings.Get("strContact"),
+                Type = PageTypes.Contact,
+                Icon = "ic_email_white_18dp"
+            });
         }
-
-        public ICommand IncreaseCountCommand { get; }
-
-        void IncreaseCount() =>
-            CountDisplay = $"You clicked {++count} times";
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        void OnPropertyChanged([CallerMemberName]string propertyName = "") =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
     }
 }

@@ -1,16 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BeautifulPlaces.App.Views.MenuPage">
+             x:Class="BeautifulPlaces.App.Views.MenuPage"
+             
+             BackgroundColor="{StaticResource MenuBackgroundColor}"
+             xmlns:controls="clr-namespace:BeautifulPlaces.App.Controls;assembly=BeautifulPlaces.App"
+             >
 
-    <ScrollView>
+    <ContentPage.Content >
+        <Grid>
+            <controls:ExtendedListView
+          BackgroundColor="{StaticResource MenuBackgroundColor}"
+          IsSelectionEnabled="False"
+          HasUnevenRows="True"
+          SeparatorVisibility="None"
+          x:Name="lstMenu"
+          ItemsSource="{Binding MenuItems}">
+                <controls:ExtendedListView.Header>
+                    <Grid  RowSpacing ="0"  ColumnSpacing="0" Padding="0">
+                        <Grid  BackgroundColor="{StaticResource ColorAccent}"  RowSpacing ="0"  ColumnSpacing="0"  Padding="0">
+                            <StackLayout  Spacing="0" Padding="{StaticResource HeaderPadding}">
+                                <StackLayout Orientation="Horizontal"  HorizontalOptions="Start" Padding="0,10">
+                                    <Grid HorizontalOptions="Start" VerticalOptions="End"  >
+                                        <Image Source="logo_satrack_menu"  HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="50" />
+                                    </Grid>
+                                </StackLayout>
+                                <StackLayout Padding="0,5,0,0" Spacing="2">
+                                    <Label Text="Andrés Londoño" FontSize="Large" LineBreakMode="TailTruncation" ></Label>
+                                </StackLayout>
+                            </StackLayout>
+                        </Grid>
+                    </Grid>
+                </controls:ExtendedListView.Header>
 
-        <StackLayout>
-            <Label Text="Hola"></Label>
-            <Label Text="Hola"></Label>
-            <Label Text="Hola"></Label>
-        </StackLayout>
+                <controls:ExtendedListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="20" ColumnSpacing="15" VerticalOptions="Center" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image  WidthRequest="25" HeightRequest="25" Source="{Binding Icon}" />
+                                <Grid VerticalOptions="Center" Grid.Column="1" >
+                                    <Label TextColor="{StaticResource FontSecondaryColor}" Text="{Binding Name}" />
+                                </Grid>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </controls:ExtendedListView.ItemTemplate>
+            </controls:ExtendedListView>
 
-    </ScrollView>
+        </Grid>
+    </ContentPage.Content>
 
 </ContentPage>

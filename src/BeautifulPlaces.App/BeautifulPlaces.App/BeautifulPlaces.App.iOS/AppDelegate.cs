@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using BeautifulPlaces.App.Services;
 
 namespace BeautifulPlaces.App.iOS
 {
@@ -23,8 +24,8 @@ namespace BeautifulPlaces.App.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            App.LocatorService = new LocatorService();
             LoadApplication(new App());
-
             return base.FinishedLaunching(app, options);
         }
     }

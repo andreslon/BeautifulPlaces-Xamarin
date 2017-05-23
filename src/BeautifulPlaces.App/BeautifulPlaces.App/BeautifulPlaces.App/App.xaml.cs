@@ -1,20 +1,17 @@
-﻿using BeautifulPlaces.App.ViewModels;
+﻿using BeautifulPlaces.App.Interfaces;
+using BeautifulPlaces.App.ViewModels;
 using BeautifulPlaces.App.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Xamarin.Forms;
 
 namespace BeautifulPlaces.App
 {
     public partial class App : Application
     {
+        public static ILocatorService LocatorService { get; set; }
+
         public App()
         {
             InitializeComponent();
-
             SetMainPage();
         }
 
@@ -22,7 +19,7 @@ namespace BeautifulPlaces.App
         {
             Current.MainPage = new MasterDetailPage
             {
-                BindingContext = new MainViewModel(),
+                BindingContext = LocatorService.Get<MainViewModel>(),
                 Detail = new TabbedPage
                 {
                     Children =

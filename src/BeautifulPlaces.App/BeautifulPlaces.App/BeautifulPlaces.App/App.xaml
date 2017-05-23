@@ -1,11 +1,20 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BeautifulPlaces.App.App">
-	<Application.Resources> 
-		<!-- Application resource dictionary -->
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="BeautifulPlaces.App.App" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" d1p1:Ignorable="d" xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
+    <Application.Resources>
+        <!-- Application resource dictionary -->
         <ResourceDictionary>
-            <OnPlatform x:Key="pagePadding" x:TypeArguments="Thickness" iOS="20" Android="20" WinPhone="30" />
+            <OnPlatform x:Key="PagePadding" x:TypeArguments="Thickness" iOS="20" Android="20" WinPhone="30" />
+            <OnPlatform x:Key="HeaderPadding" x:TypeArguments="Thickness" iOS="10" Android="10" WinPhone="10" />
+
+            <Color x:Key="ColorPrimary">#1abc9c</Color>
+            <Color x:Key="ColorPrimaryDark">#16a085</Color>
+            <Color x:Key="ColorAccent">#e67e22</Color>
+            <Color x:Key="BorderColor">#c0bbb6</Color>
+            <Color x:Key="FontPrimaryColor">#757575</Color>
+            <Color x:Key="FontSecondaryColor">#f6f6f6</Color>
+            <Color x:Key="MenuBackgroundColor">#757575</Color>
+
+
         </ResourceDictionary>
-	</Application.Resources>
+    </Application.Resources>
 </Application>

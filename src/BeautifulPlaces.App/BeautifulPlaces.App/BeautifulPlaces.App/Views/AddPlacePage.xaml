@@ -4,12 +4,12 @@
              Title="Add Place"
              x:Class="BeautifulPlaces.App.Views.AddPlacePage">
     <ScrollView>
-        <Grid Padding="{StaticResource pagePadding}">
+        <Grid Padding="{StaticResource PagePadding}">
             <StackLayout>
                 <Entry Placeholder="Nombre"></Entry>
                 <Entry Placeholder="Ubicación"></Entry>
                 <Editor></Editor>
-                <Button Text="Guardar"></Button>
+                <Button BackgroundColor="{StaticResource ColorPrimaryDark}" Text="Guardar"></Button>
             </StackLayout>
         </Grid>
     </ScrollView>

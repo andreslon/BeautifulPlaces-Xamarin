@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using BeautifulPlaces.App.Services;
 
 namespace BeautifulPlaces.App.Droid
 {
@@ -19,7 +20,8 @@ namespace BeautifulPlaces.App.Droid
 
             base.OnCreate(bundle);
 
-            global::Xamarin.Forms.Forms.Init(this, bundle);
+            global::Xamarin.Forms.Forms.Init(this, bundle); 
+            App.LocatorService = new LocatorService();
             LoadApplication(new App());
         }
     }
