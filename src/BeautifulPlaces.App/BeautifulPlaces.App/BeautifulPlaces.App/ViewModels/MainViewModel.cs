@@ -1,10 +1,13 @@
 ﻿using BeautifulPlaces.App.Enumerations;
+using BeautifulPlaces.App.Interfaces;
 using BeautifulPlaces.App.Resources;
 using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -14,41 +17,61 @@ namespace BeautifulPlaces.App.ViewModels
     {
         public List<PlaceViewModel> Places { get; set; }
         public PlaceViewModel SelectedPlace { get; set; }
-
         public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
-        public MainViewModel()
+
+        public IApiService ApiService { get; set; }
+        public MainViewModel(IApiService apiService)
         {
+            ApiService = apiService;
             Places = new List<PlaceViewModel>();
-            Places.Add(new PlaceViewModel
-            {
-                Description = "Description",
-                Likes = 2,
-                Location = "Location",
-                Name = "Name",
-                Thumbnail = "http://www.hotelpark10.com.co/pagomio/wp-content/uploads/2014/10/medellin-colombia-hotelpark10.jpg",
-                Pictures = new ObservableCollection<PictureViewModel>  {
-                    new PictureViewModel{ Uri="http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/23c1dd13-333a-459e-9e23-c3784e7cb434/2016-06-02_1049.png" } ,
-                    new PictureViewModel{ Uri="http://content.screencast.com/users/JamesMontemagno/folders/Jing/media/23c1dd13-333a-459e-9e23-c3784e7cb434/2016-06-02_1049.png" },
-                    new PictureViewModel{ Uri="http://www.eafit.edu.co/vivirenmedellin/PublishingImages/VIVIR%20EN%20MEDELLIN.jpg" },
-                    new PictureViewModel{ Uri="http://www.eafit.edu.co/vivirenmedellin/PublishingImages/VIVIR%20EN%20MEDELLIN.jpg" },
-                 }
-            });
-            Places.Add(new PlaceViewModel
-            {
-                Description = "Description",
-                Likes = 2,
-                Location = "Location",
-                Name = "Name",
-                Thumbnail = "http://sociable.co/wp-content/uploads/2016/02/medellin.jpg",
-                Pictures = new ObservableCollection<PictureViewModel>  {
-                    new PictureViewModel{ Uri="http://www.eafit.edu.co/vivirenmedellin/PublishingImages/VIVIR%20EN%20MEDELLIN.jpg" } ,
-                    new PictureViewModel{ Uri="http://www.eafit.edu.co/vivirenmedellin/PublishingImages/VIVIR%20EN%20MEDELLIN.jpg" },
-                    new PictureViewModel{ Uri="http://www.eafit.edu.co/vivirenmedellin/PublishingImages/VIVIR%20EN%20MEDELLIN.jpg" },
-                    new PictureViewModel{ Uri="http://www.eafit.edu.co/vivirenmedellin/PublishingImages/VIVIR%20EN%20MEDELLIN.jpg" },
-                 }
-            });
             LoadMenuItems();
+            LoadPlaces();
         }
+
+
+        async public void LoadPlaces()
+        {
+            var placesResponse = await ApiService.GetPlaces();
+            if (placesResponse.HttpResponse.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var picturesResponse = await ApiService.GetPictures();
+                if (picturesResponse.HttpResponse.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    foreach (var place in placesResponse.Response)
+                    {
+                        var placeViewModel = new PlaceViewModel
+                        {
+                            Description = place.Description,
+                            Id = place.Id,
+                            Likes = place.Likes,
+                            Location = place.Location,
+                            Name = place.Name,
+                            Thumbnail = place.Thumbnail,
+                            Pictures = new ObservableCollection<PictureViewModel>()
+                        };
+
+                        var pictures = picturesResponse.Response.Where(x => x.Place?.Id == place.Id);
+                        if (pictures != null && pictures.Count() > 0)
+                        {
+                            foreach (var picture in pictures)
+                            {
+                                placeViewModel.Pictures.Add(new PictureViewModel { Id = picture.Id, Uri = picture.Uri });
+                            }
+                        }
+                        Places.Add(placeViewModel);
+                    }
+                }
+                else
+                {
+                    await App.NavigationPage.DisplayAlert("Ups!", "Ha ocurrido un error obteniendo datos del servidor.", "Aceptar");
+                }
+            }
+            else
+            {
+                await App.NavigationPage.DisplayAlert("Ups!", "Ha ocurrido un error obteniendo datos del servidor.", "Aceptar");
+            }
+        }
+
         private void LoadMenuItems()
         {
             MenuItems = new ObservableCollection<MenuItemViewModel>();

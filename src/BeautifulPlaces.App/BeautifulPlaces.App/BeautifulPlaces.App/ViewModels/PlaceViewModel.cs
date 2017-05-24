@@ -31,7 +31,7 @@ namespace BeautifulPlaces.App.ViewModels
         {
             var main = App.LocatorService.Get<MainViewModel>();
             main.SelectedPlace = this;
-            App.SetNavigationPage(new PlaceDetailPage()); 
+           App.SetNavigationPage(new PlaceDetailPage());  
         }
     }
 }

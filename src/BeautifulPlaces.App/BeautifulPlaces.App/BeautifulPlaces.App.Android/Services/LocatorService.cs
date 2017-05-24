@@ -12,11 +12,11 @@ namespace BeautifulPlaces.App.Services
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             SimpleIoc.Default.Register<MainViewModel>();
-            ////Cross Services
-            //SimpleIoc.Default.Register<IDialogService, DialogService>();
-            //SimpleIoc.Default.Register<INavigationService, NavigationService>();
-            //SimpleIoc.Default.Register<IProgressDialogService, ProgressDialogService>();
-        } 
+            //Cross Services
+            SimpleIoc.Default.Register<IApiService, ApiService>();
+            SimpleIoc.Default.Register<IHttpClientService, HttpClientService>();
+            SimpleIoc.Default.Register<IJsonService, JsonService>();
+        }
         public T Get<T>() where T : class
         {
             return SimpleIoc.Default.GetInstance<T>();
