@@ -8,7 +8,7 @@ namespace BeautifulPlaces.App
     public partial class App : Application
     {
         public static ILocatorService LocatorService { get; set; }
-
+        public static NavigationPage NavigationPage { get; set; }
         public App()
         {
             InitializeComponent();
@@ -17,6 +17,11 @@ namespace BeautifulPlaces.App
 
         public static void SetMainPage()
         {
+            NavigationPage = new NavigationPage(new PlacesPage())
+            {
+                Title = "Todos",
+                Icon = "ic_filter_list_white_24dp.png"
+            };
             Current.MainPage = new MasterDetailPage
             {
                 BindingContext = LocatorService.Get<MainViewModel>(),
@@ -24,11 +29,7 @@ namespace BeautifulPlaces.App
                 {
                     Children =
                         {
-                            new NavigationPage(new PlacesPage())
-                            {
-                                Title = "Todos",
-                                Icon = "ic_filter_list_white_24dp.png"
-                            },
+                            NavigationPage,
                             new NavigationPage(new AddPlacePage())
                             {
                                 Title = "Agregar",
@@ -42,6 +43,11 @@ namespace BeautifulPlaces.App
                 }
             };
 
+        }
+
+        async public static void SetNavigationPage(Page page) {
+            NavigationPage.SetBackButtonTitle(page, "Atrás");
+            await NavigationPage.PushAsync(page);
         }
 
         protected override void OnStart()

@@ -10,12 +10,12 @@
     <ContentPage.Content >
         <Grid>
             <controls:ExtendedListView
-          BackgroundColor="{StaticResource MenuBackgroundColor}"
-          IsSelectionEnabled="False"
-          HasUnevenRows="True"
-          SeparatorVisibility="None"
-          x:Name="lstMenu"
-          ItemsSource="{Binding MenuItems}">
+              BackgroundColor="{StaticResource MenuBackgroundColor}"
+              IsSelectionEnabled="False"
+              HasUnevenRows="True"
+              SeparatorVisibility="None"
+              x:Name="lstMenu"
+              ItemsSource="{Binding MenuItems}">
                 <controls:ExtendedListView.Header>
                     <Grid  RowSpacing ="0"  ColumnSpacing="0" Padding="0">
                         <Grid  BackgroundColor="{StaticResource ColorAccent}"  RowSpacing ="0"  ColumnSpacing="0"  Padding="0">
@@ -41,6 +41,9 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding GoToMenuOptionCommand}" />
+                                </Grid.GestureRecognizers>
                                 <Image  WidthRequest="25" HeightRequest="25" Source="{Binding Icon}" />
                                 <Grid VerticalOptions="Center" Grid.Column="1" >
                                     <Label TextColor="{StaticResource FontSecondaryColor}" Text="{Binding Name}" />

@@ -52,7 +52,6 @@
     <Compile Include="Resources\LocalizedStrings.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MenuItemViewModel.cs" />
-    <Compile Include="ViewModels\PictureViewModel.cs" />
     <Compile Include="ViewModels\PlaceViewModel.cs" />
     <Compile Include="Views\AddPlacePage.xaml.cs">
       <DependentUpon>AddPlacePage.xaml</DependentUpon>

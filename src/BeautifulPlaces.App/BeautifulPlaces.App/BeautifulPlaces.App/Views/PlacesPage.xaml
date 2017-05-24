@@ -2,15 +2,42 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BeautifulPlaces.App.Views.PlacesPage"
+             xmlns:controls="clr-namespace:BeautifulPlaces.App.Controls;assembly=BeautifulPlaces.App"
              Title="Places">
-  <ScrollView>
-    <StackLayout Padding="10">
-      <Label Text="ContentPage" FontSize="40"/>
-      <Label Text="ContentPage is the simplest type of page."/>
-      <Label Text="The content of the ContentPage is generally a layout of some sort that can be a parent to multiple children."/>
-      <Label Text="This contant page contains a StackLayout, which in turn contains a few Label views (including the large one on the top and an example of handling click commands and data binding to a Label below)."/>
-      <Button Text="Click Me" Command="{Binding IncreaseCountCommand}"/>
-      <Label Text="{Binding CountDisplay}"/>
-    </StackLayout>
-  </ScrollView>
+    <ScrollView>
+        <Grid >
+            <controls:ExtendedListView     IsSelectionEnabled="False"
+                                           HasUnevenRows="True"
+                                           SeparatorVisibility="None"
+                                           ItemsSource="{Binding Places}">
+
+                <controls:ExtendedListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="{StaticResource ItemPadding}">
+                                <Frame Padding="5">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer  Command="{Binding SelectCommand}" />
+                                    </Frame.GestureRecognizers>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition  Width="Auto"/>
+                                            <ColumnDefinition  Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image  Source="{Binding Thumbnail}" WidthRequest="50" HeightRequest="50" Aspect="Fill"/>
+                                        <StackLayout Grid.Column="1" Spacing="1">
+                                            <Label Text="{Binding Name }" FontSize="Medium" LineBreakMode="TailTruncation" />
+                                            <Label Text="{Binding Location}"  LineBreakMode="TailTruncation" />
+                                            <Label Text="{Binding Description}" FontSize="Micro"  LineBreakMode="TailTruncation" />
+                                        </StackLayout>
+                                    </Grid>
+
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </controls:ExtendedListView.ItemTemplate>
+            </controls:ExtendedListView>
+        </Grid>
+    </ScrollView>
 </ContentPage>

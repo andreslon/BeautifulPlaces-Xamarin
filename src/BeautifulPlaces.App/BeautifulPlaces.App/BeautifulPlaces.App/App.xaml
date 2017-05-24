@@ -5,7 +5,9 @@
         <ResourceDictionary>
             <OnPlatform x:Key="PagePadding" x:TypeArguments="Thickness" iOS="20" Android="20" WinPhone="30" />
             <OnPlatform x:Key="HeaderPadding" x:TypeArguments="Thickness" iOS="10" Android="10" WinPhone="10" />
-
+            <OnPlatform x:Key="ItemPadding" x:TypeArguments="Thickness"  iOS="10,5,10,5" Android="10,5,10,5" WinPhone="10,5,10,5" />
+            
+            
             <Color x:Key="ColorPrimary">#1abc9c</Color>
             <Color x:Key="ColorPrimaryDark">#16a085</Color>
             <Color x:Key="ColorAccent">#e67e22</Color>
