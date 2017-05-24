@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace BeautifulPlaces.App.ViewModels
         public int Likes { get; set; }
         public string Location { get; set; }
         public string Thumbnail { get; set; }
-        public List<string> Pictures { get; set; }
+        public ObservableCollection<PictureViewModel> Pictures { get; set; }
         public ICommand SelectCommand { get { return new RelayCommand(Select); } }
 
         async private void Select()

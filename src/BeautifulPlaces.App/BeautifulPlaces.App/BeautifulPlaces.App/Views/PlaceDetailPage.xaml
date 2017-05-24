@@ -1,6 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BeautifulPlaces.App.Views.PlaceDetailPage"
+             x:Class="BeautifulPlaces.App.Views.PlaceDetailPage" 
+             xmlns:controls="clr-namespace:BeautifulPlaces.App.Controls;assembly=BeautifulPlaces.App"
              Title="{Binding SelectedPlace.Name}">
+    <Grid Padding="{StaticResource PagePadding}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".3*"/>
+            <RowDefinition Height=".7*"/>
+        </Grid.RowDefinitions> 
+        <Grid>
+            <controls:TLScrollView Orientation="Horizontal" ItemsSource="{Binding SelectedPlace.Pictures}" HeightRequest="100">
+                <controls:TLScrollView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="5">
+                                <Image Source="{Binding Uri}" Aspect="AspectFill" HeightRequest="100" WidthRequest="100" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </controls:TLScrollView.ItemTemplate>
+            </controls:TLScrollView>
+        </Grid>  
+        <StackLayout Grid.Row="1">
+            <Label  Text="{Binding SelectedPlace.Name}" FontAttributes="Bold" FontSize="Large"></Label>
+            <Label  Text="{Binding SelectedPlace.Location}"   FontSize="Large"></Label>
+            <Label  Text="{Binding SelectedPlace.Description}"   FontSize="Medium"></Label> 
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Likes: " FontAttributes="Bold"></Label>
+                <Label Text="{Binding Likes}"></Label> 
+            </StackLayout> 
+        </StackLayout>
+        
+    </Grid> 
 </ContentPage>
