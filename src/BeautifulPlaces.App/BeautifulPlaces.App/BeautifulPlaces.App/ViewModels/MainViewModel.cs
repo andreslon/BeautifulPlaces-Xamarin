@@ -15,7 +15,14 @@ namespace BeautifulPlaces.App.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        public List<PlaceViewModel> Places { get; set; }
+        private List<PlaceViewModel> _Places;
+
+        public List<PlaceViewModel> Places
+        {
+            get { return _Places; }
+            set { Set(ref _Places, value); }
+        }
+
         public PlaceViewModel SelectedPlace { get; set; }
         public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
 
@@ -23,7 +30,7 @@ namespace BeautifulPlaces.App.ViewModels
         public MainViewModel(IApiService apiService)
         {
             ApiService = apiService;
-            Places = new List<PlaceViewModel>();
+            
             LoadMenuItems();
             LoadPlaces();
         }
@@ -37,6 +44,7 @@ namespace BeautifulPlaces.App.ViewModels
                 var picturesResponse = await ApiService.GetPictures();
                 if (picturesResponse.HttpResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {
+                    Places = new List<PlaceViewModel>();
                     foreach (var place in placesResponse.Response)
                     {
                         var placeViewModel = new PlaceViewModel
@@ -50,7 +58,7 @@ namespace BeautifulPlaces.App.ViewModels
                             Pictures = new ObservableCollection<PictureViewModel>()
                         };
 
-                        var pictures = picturesResponse.Response.Where(x => x.Place?.Id == place.Id);
+                        var pictures = picturesResponse.Response.Where(x => x.PlaceId == place.Id);
                         if (pictures != null && pictures.Count() > 0)
                         {
                             foreach (var picture in pictures)
@@ -58,7 +66,7 @@ namespace BeautifulPlaces.App.ViewModels
                                 placeViewModel.Pictures.Add(new PictureViewModel { Id = picture.Id, Uri = picture.Uri });
                             }
                         }
-                        Places.Add(placeViewModel);
+                        Places.Add(placeViewModel); 
                     }
                 }
                 else
@@ -71,7 +79,27 @@ namespace BeautifulPlaces.App.ViewModels
                 await App.NavigationPage.DisplayAlert("Ups!", "Ha ocurrido un error obteniendo datos del servidor.", "Aceptar");
             }
         }
-
+        async public void SetLike(PlaceViewModel placeViewModel)
+        {
+            var placeResponse = await ApiService.UpdatePlace(new Dtos.PlaceDto
+            {
+                Description = placeViewModel.Description,
+                Id = placeViewModel.Id,
+                Likes = placeViewModel.Likes,
+                Location = placeViewModel.Location,
+                Name = placeViewModel.Name,
+                Thumbnail = placeViewModel.Thumbnail,
+            });
+            if (placeResponse.HttpResponse.StatusCode == System.Net.HttpStatusCode.OK
+                || placeResponse.HttpResponse.StatusCode == System.Net.HttpStatusCode.NoContent)
+            {
+                await App.NavigationPage.DisplayAlert("Exitoso!", "Gracias por proporcionar un voto por este lugar.", "Aceptar");
+            }
+            else
+            {
+                await App.NavigationPage.DisplayAlert("Ups!", "Ha ocurrido un error enviando datos a el servidor.", "Aceptar");
+            }
+        }
         private void LoadMenuItems()
         {
             MenuItems = new ObservableCollection<MenuItemViewModel>();

@@ -9,7 +9,7 @@
             <controls:ExtendedListView     IsSelectionEnabled="False"
                                            HasUnevenRows="True"
                                            SeparatorVisibility="None"
-                                           ItemsSource="{Binding Places}">
+                                           ItemsSource="{Binding Places,Mode=TwoWay}">
 
                 <controls:ExtendedListView.ItemTemplate>
                     <DataTemplate>
@@ -29,6 +29,10 @@
                                             <Label Text="{Binding Name }" FontSize="Medium" LineBreakMode="TailTruncation" />
                                             <Label Text="{Binding Location}"  LineBreakMode="TailTruncation" />
                                             <Label Text="{Binding Description}" FontSize="Micro"  LineBreakMode="TailTruncation" />
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Likes: "  FontAttributes="Bold"></Label>
+                                                <Label Text="{Binding Likes}"></Label>
+                                            </StackLayout>
                                         </StackLayout>
                                     </Grid>
 

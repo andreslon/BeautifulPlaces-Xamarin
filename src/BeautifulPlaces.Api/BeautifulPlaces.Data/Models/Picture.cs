@@ -18,6 +18,6 @@ namespace BeautifulPlaces.Data.Models
         [Required]
         public string Uri { get; set; }
         [Required]
-        public Place Place { get; set; }
+        public Guid PlaceId { get; set; }
     }
 }

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="Add Place"
              x:Class="BeautifulPlaces.App.Views.AddPlacePage">
-    <ScrollView>
+    <!--<ScrollView>
         <Grid Padding="{StaticResource PagePadding}">
             <StackLayout>
                 <Entry Placeholder="Nombre"></Entry>
@@ -12,5 +12,5 @@
                 <Button BackgroundColor="{StaticResource ColorPrimaryDark}" Text="Guardar"></Button>
             </StackLayout>
         </Grid>
-    </ScrollView>
+    </ScrollView>-->
 </ContentPage>

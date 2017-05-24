@@ -66,5 +66,28 @@ namespace BeautifulPlaces.App.Services
                 return new BaseResponse<List<PictureDto>>() { HttpResponse = new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.BadRequest } };
             }
         }
+        public async Task<BaseResponse<PlaceDto>> UpdatePlace(PlaceDto placeDto)
+        {
+            try
+            {
+                HttpResponseMessage result = await HttpClientService.PutAsync($"{hostApi}api/Places/{placeDto.Id}", placeDto);
+                if (result.IsSuccessStatusCode)
+                {
+
+                    var serializedResponse = await JsonService.GetSerializedResponse<PlaceDto>(result);
+                    var response = new BaseResponse<PlaceDto>() { Response = serializedResponse };
+                    response.HttpResponse = result;
+                    return response;
+                }
+                else
+                {
+                    return new BaseResponse<PlaceDto>() { HttpResponse = result };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<PlaceDto>() { HttpResponse = new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.BadRequest } };
+            }
+        }
     }
 }

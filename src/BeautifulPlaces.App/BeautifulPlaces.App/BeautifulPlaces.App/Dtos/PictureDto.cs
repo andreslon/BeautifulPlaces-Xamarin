@@ -10,6 +10,6 @@ namespace BeautifulPlaces.App.Dtos
     {
         public string Id { get; set; }
         public string Uri { get; set; }
-        public PlaceDto Place { get; set; }
+        public string PlaceId { get; set; }
     }
 }

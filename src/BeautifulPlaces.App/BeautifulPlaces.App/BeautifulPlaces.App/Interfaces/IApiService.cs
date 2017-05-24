@@ -11,5 +11,6 @@ namespace BeautifulPlaces.App.Interfaces
     {
         Task<BaseResponse<List<PlaceDto>>> GetPlaces();
         Task<BaseResponse<List<PictureDto>>> GetPictures();
+        Task<BaseResponse<PlaceDto>> UpdatePlace(PlaceDto placeDto);
     }
 }

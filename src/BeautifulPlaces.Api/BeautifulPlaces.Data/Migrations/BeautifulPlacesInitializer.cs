@@ -7,29 +7,27 @@ namespace BeautifulPlaces.Data.Migrations
     {
 
         protected override void Seed(BeautifulPlacesContext context)
-        { 
+        {
             var places = new List<Place>
             {
-                new Place { Name="Medellin", Description="Hermosa ciudad", Location="Cra 57c#41" ,  Thumbnail="http://elcampesino.co/wp-content/uploads/2016/03/4-1.jpg" },
-            };
-
+                new Place {
+                    Name ="Medellin"
+                    , Description="Medellín es un municipio colombiano, capital del departamento de Antioquia. Es la ciudad más poblada del departamento y la segunda del país."
+                    , Location="6°14′41″N 75°34′29″O" 
+                    ,  Thumbnail="http://elcampesino.co/wp-content/uploads/2016/03/4-1.jpg" },
+            }; 
             places.ForEach(s => context.Places.Add(s));
-            context.SaveChanges();
-
-
+            context.SaveChanges(); 
             var pictures = new List<Picture>
             {
-                new Picture { Uri="http://elcampesino.co/wp-content/uploads/2016/03/4-1.jpg" , Place=places[0] },
-                new Picture { Uri="http://elcampesino.co/wp-content/uploads/2016/03/4-1.jpg" , Place=places[0] },
-                new Picture { Uri="http://elcampesino.co/wp-content/uploads/2016/03/4-1.jpg" , Place=places[0] },
-                new Picture { Uri="http://elcampesino.co/wp-content/uploads/2016/03/4-1.jpg" , Place=places[0] },
-                new Picture { Uri="http://elcampesino.co/wp-content/uploads/2016/03/4-1.jpg" , Place=places[0] },
-                new Picture { Uri="http://elcampesino.co/wp-content/uploads/2016/03/4-1.jpg" , Place=places[0] },
-                new Picture { Uri="http://elcampesino.co/wp-content/uploads/2016/03/4-1.jpg" , Place=places[0] },
-                new Picture { Uri="http://elcampesino.co/wp-content/uploads/2016/03/4-1.jpg" , Place=places[0] },
-                new Picture { Uri="http://elcampesino.co/wp-content/uploads/2016/03/4-1.jpg" , Place=places[0] },
-            };
-
+                new Picture { Uri="http://elcampesino.co/wp-content/uploads/2016/03/4-1.jpg" , PlaceId=places[0].Id },
+                new Picture { Uri="http://elcampesino.co/wp-content/uploads/2016/03/4-1.jpg" , PlaceId=places[0].Id },
+                new Picture { Uri="http://elcampesino.co/wp-content/uploads/2016/03/4-1.jpg" , PlaceId=places[0].Id },
+                new Picture { Uri="http://elcampesino.co/wp-content/uploads/2016/03/4-1.jpg" , PlaceId=places[0].Id },
+                new Picture { Uri="http://elcampesino.co/wp-content/uploads/2016/03/4-1.jpg" , PlaceId=places[0].Id },
+                new Picture { Uri="http://elcampesino.co/wp-content/uploads/2016/03/4-1.jpg" , PlaceId=places[0].Id },
+                new Picture { Uri="http://elcampesino.co/wp-content/uploads/2016/03/4-1.jpg" , PlaceId=places[0].Id },
+            }; 
             pictures.ForEach(s => context.Pictures.Add(s));
             context.SaveChanges();
         }

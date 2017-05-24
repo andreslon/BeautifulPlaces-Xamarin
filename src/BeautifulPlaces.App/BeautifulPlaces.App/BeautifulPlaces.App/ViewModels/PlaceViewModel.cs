@@ -33,5 +33,13 @@ namespace BeautifulPlaces.App.ViewModels
             main.SelectedPlace = this;
            App.SetNavigationPage(new PlaceDetailPage());  
         }
+        public ICommand LikeCommand { get { return new RelayCommand(Like); } }
+
+        async private void Like()
+        {
+            var main = App.LocatorService.Get<MainViewModel>();
+            this.Likes++;
+            main.SetLike(this);
+        }
     }
 }

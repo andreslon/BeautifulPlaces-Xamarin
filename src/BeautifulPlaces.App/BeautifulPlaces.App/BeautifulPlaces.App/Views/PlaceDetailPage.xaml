@@ -8,6 +8,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height=".3*"/>
             <RowDefinition Height=".7*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions> 
         <Grid>
             <controls:TLScrollView Orientation="Horizontal" ItemsSource="{Binding SelectedPlace.Pictures}" HeightRequest="100">
@@ -28,9 +29,9 @@
             <Label  Text="{Binding SelectedPlace.Description}"   FontSize="Medium"></Label> 
             <StackLayout Orientation="Horizontal">
                 <Label Text="Likes: " FontAttributes="Bold"></Label>
-                <Label Text="{Binding Likes}"></Label> 
+                <Label Text="{Binding SelectedPlace.Likes}"></Label> 
             </StackLayout> 
         </StackLayout>
-        
+        <Button Grid.Row="2" Command="{Binding SelectedPlace.LikeCommand}" TextColor="White" BackgroundColor="{StaticResource ColorPrimaryDark}" Text="Me gusta!"></Button>
     </Grid> 
 </ContentPage>
